@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>post</title>
+  </head>
+  <body>
+    <a href="/">首页</a>
+    <form action="/comment" method="get">
+      <label for="input_name"></label>
+      <input type="text" name="name" id="input_name" placeholder="请输入姓名" />
+      <label for="input_message"></label>
+      <input
+        type="textarea"
+        name="message"
+        id="input_message"
+        placeholder="请输入评论"
+      />
+      <input type="submit" value="评论" />
+    </form>
+  </body>
+</html>
