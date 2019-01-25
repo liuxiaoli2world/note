@@ -16,12 +16,11 @@
   </head>
   <body>
     <h1>留言</h1>
-    <a href="/post.html">评论</a>
+    <a href="/post">评论</a>
     <ul>
       {{ each }}
       <li>
-        <span class="message">{{ $value.message }}</span
-        ><span class="date">{{ $value.date }}</span>
+        <span class="message">{{ $value.message }}</span><span class="date">{{ $value.date }}</span>
       </li>
       {{/each}}
     </ul>

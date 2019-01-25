@@ -27,11 +27,11 @@ http
     } else if (pathname === '/comment') {
       var message = obj.query.message;
       comments.push({ message: message, date: '2019-01-23' });
-
+console.log('object');
       res.statusCode = 302;
       res.setHeader('Location', '/');
       res.end();
-    } else if (pathname === '/post.html') {
+    } else if (pathname === '/post') {
       fs.readFile('./html/post.html', function(err, data) {
         if (err) {
           res.end(err);
@@ -44,5 +44,7 @@ http
     }
   })
   .listen(3000, function() {
+
+    console.log('object');
     console.log('服务器启动成功！');
   });
