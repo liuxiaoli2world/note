@@ -1,59 +1,25 @@
 {
-  "students": [
-    {
-      "name": "fdsaf",
-      "gender": "0",
-      "age": "3",
-      "hobbies": "发生发的撒发发顺丰发的"
-    },
-    {
-      "id": "000001",
-      "name": "张三",
-      "gender": 1,
-      "age": 19,
-      "hobbies": "美食 羽毛球 编程"
-    },
-    {
-      "id": "000002",
-      "name": "李四",
-      "gender": 0,
-      "age": 18,
-      "hobbies": "美食 羽毛球 编程"
-    },
-    {
-      "id": "000003",
-      "name": "王五",
-      "gender": 1,
-      "age": 17,
-      "hobbies": "美食 羽毛球 编程"
-    },
-    {
-      "id": "000004",
-      "name": "丁柳",
-      "gender": 0,
-      "age": 15,
-      "hobbies": "美食 羽毛球 编程"
-    },
-    {
-      "id": "000005",
-      "name": "李四",
-      "gender": 0,
-      "age": 18,
-      "hobbies": "美食 羽毛球 编程"
-    },
-    {
-      "id": "000006",
-      "name": "王五",
-      "gender": 1,
-      "age": 17,
-      "hobbies": "美食 羽毛球 编程"
-    },
-    {
-      "id": "000007",
-      "name": "丁柳",
-      "gender": 0,
-      "age": 15,
-      "hobbies": "美食 羽毛球 编程"
-    }
-  ]
+	"students": [
+		{
+			"id": "4",
+			"name": "发顺丰",
+			"gender": "0",
+			"age": "20",
+			"hobbies": "范德萨发"
+		},
+		{
+			"id": "3",
+			"name": "发顺丰的",
+			"gender": "1",
+			"age": "18",
+			"hobbies": "发顺丰的"
+		},
+		{
+			"id": "1",
+			"name": "张三",
+			"gender": "0",
+			"age": "5",
+			"hobbies": "美食"
+		}
+	]
 }

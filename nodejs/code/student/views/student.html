@@ -127,7 +127,8 @@
           </div>
 
           <h2 class="sub-header">Section title</h2>
-          <form action="/student/new" method="post">
+          <form action="{{id?'/student/edit':'/student/new'}}" method="post">
+            <input type="hidden" name="id" value={{id}}>
             <div class="form-group">
               <label for="name">姓名</label>
               <input
@@ -136,16 +137,17 @@
                 id="name"
                 name="name"
                 placeholder="姓名"
+                value="{{name}}"
               />
             </div>
             <div class="form-group">
               <label for="gender">性别</label>
+              {{if gender === "0"}}
               <div class="radio">
                 <label>
                   <input
                     type="radio"
                     name="gender"
-                    id="gender"
                     value="0"
                     checked
                   />
@@ -157,10 +159,28 @@
                   <input type="radio" name="gender" id="gender" value="1" /> 女
                 </label>
               </div>
+            
+              {{else if gender === "1"}}
+              <div class="radio">
+                <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="0"
+                  />
+                  男
+                </label>
+              </div>
+              <div class="radio">
+                <label>
+                  <input type="radio" name="gender" value="1" checked/> 女
+                </label>
+              </div>
+              {{/if}}
             </div>
             <div class="form-group">
               <label for="age">年龄 </label>
-              <input type="number" id="age" name="age" />
+              <input type="number" id="age" name="age" min="1" value="{{age}}"/>
             </div>
             <div class="form-group">
               <label for="hobbies">爱好</label>
@@ -170,9 +190,10 @@
                 id="hobbies"
                 name="hobbies"
                 placeholder="爱好"
+                value="{{hobbies}}"
               />
             </div>
-            <button type="submit" class="btn btn-primary">新增</button>
+            <button type="submit" class="btn btn-primary">{{id?'修改':'新增'}}</button>
           </form>
         </div>
       </div>
