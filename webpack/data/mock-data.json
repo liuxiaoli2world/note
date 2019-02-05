@@ -1,0 +1,54 @@
+{
+  "posts": [
+    {
+      "id": "9b9b5c12-8ff7-4edc-8fa9-3ca0c1fecf08",
+      "title": "District Implementation Director",
+      "author": "Cicero"
+    },
+    {
+      "id": "beababb3-73dd-4025-8858-43630962b683",
+      "title": "Lead Factors Agent",
+      "author": "Mateo"
+    },
+    {
+      "id": "d081313d-e77e-422f-a812-6b80f024aff3",
+      "title": "Lead Implementation Analyst",
+      "author": "Jermaine"
+    },
+    {
+      "id": "9cf9c583-c303-41bc-87e9-451fe94c649a",
+      "title": "Senior Directives Associate",
+      "author": "Arch"
+    },
+    {
+      "id": "8144bd23-ad14-41a5-b68a-a621d32d1906",
+      "title": "Chief Division Agent",
+      "author": "Kian"
+    },
+    {
+      "id": "9072b37d-2c35-4ce7-b169-95d99b21c682",
+      "title": "Dynamic Metrics Representative",
+      "author": "Rudolph"
+    },
+    {
+      "id": "29462328-a36c-4151-bde1-94ef0ca0e20b",
+      "title": "District Directives Analyst",
+      "author": "Ruth"
+    },
+    {
+      "id": "e5f95f9a-5c5e-4499-b468-f64ab01ef199",
+      "title": "Dynamic Integration Agent",
+      "author": "Zena"
+    },
+    {
+      "id": "a6f1e004-329b-4147-b5b7-d4191281e041",
+      "title": "District Marketing Assistant",
+      "author": "Kasandra"
+    },
+    {
+      "id": "3080ea5f-5004-4d80-9b02-883547a63a43",
+      "title": "Global Operations Facilitator",
+      "author": "Kennedy"
+    }
+  ]
+}
