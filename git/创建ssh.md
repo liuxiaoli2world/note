@@ -27,6 +27,7 @@ total 9
 -rw-r--r-- 1 lxl_0 197609 1383 2月  15 12:43 known_hosts
 
 lxl_0@L430 MINGW64 ~/.ssh
+# 生成 key
 $ ssh-keygen -t rsa -b 4096 -C "liuxiaoli2world@gmail.com"
 Generating public/private rsa key pair.
 Enter file in which to save the key (/c/Users/lxl_0/.ssh/id_rsa):
@@ -50,6 +51,7 @@ The key's randomart image is:
 +----[SHA256]-----+
 
 lxl_0@L430 MINGW64 ~/.ssh
+# 修改密码
 $ ssh-keygen -p
 Enter file in which the key is (/c/Users/lxl_0/.ssh/id_rsa):
 Enter old passphrase:
@@ -59,15 +61,18 @@ Enter same passphrase again:
 Your identification has been saved with the new passphrase.
 
 lxl_0@L430 MINGW64 ~/.ssh
+# 开启服务
 $ eval $(ssh-agent -s)
 Agent pid 9492
 
 lxl_0@L430 MINGW64 ~/.ssh
+# 添加密钥
 $ ssh-add ./id_rsa
 Enter passphrase for ./id_rsa:
 Identity added: ./id_rsa (liuxiaoli2world@gmail.com)
 
 lxl_0@L430 MINGW64 ~/.ssh
+# 复制密钥，在 github 官网中用户头像下点击选中 "setting" 下 "SSH and GPG keys" ，新建一个保存即可
 $ clip < ./id_rsa.pub
 
 lxl_0@L430 MINGW64 ~/.ssh
