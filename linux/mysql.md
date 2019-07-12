@@ -26,40 +26,6 @@ Follow the steps below to install the latest GA version of MySQL with the MySQL 
       shell> sudo yum localinstall platform-and-version-specific-package-name.rpm
       ```
 
-      
-
-      For an EL6-based system, the command is in the form of:
-
-      ```bash
-      shell> sudo yum localinstall mysql80-community-release-el6-{version-number}.noarch.rpm
-      ```
-
-      
-
-      For an EL7-based system:
-
-      ```bash
-      shell> sudo yum localinstall mysql80-community-release-el7-{version-number}.noarch.rpm
-      ```
-
-      
-
-      For Fedora 30:
-
-      ```bash
-      shell> sudo dnf localinstall mysql80-community-release-fc30-{version-number}.noarch.rpm
-      ```
-
-      
-
-      For Fedora 29:
-
-      ```bash
-      shell> sudo dnf localinstall mysql80-community-release-fc29-{version-number}.noarch.rpm
-      ```
-
-      
-
       The installation command adds the MySQL Yum repository to your system's repository list and downloads the GnuPG key to check the integrity of the software packages. See [Section 2.1.3.2, “Signature Checking Using GnuPG”](https://dev.mysql.com/doc/refman/8.0/en/checking-gpg-signature.html) for details on GnuPG key checking.
 
       You can check that the MySQL Yum repository has been successfully added by the following command (for dnf-enabled systems, replace **yum** in the command with **dnf**):
@@ -73,7 +39,7 @@ Follow the steps below to install the latest GA version of MySQL with the MySQL 
    Note
 
    Once the MySQL Yum repository is enabled on your system, any system-wide update by the **yum update**command (or **dnf upgrade** for dnf-enabled systems) will upgrade MySQL packages on your system and also replace any native third-party packages, if Yum finds replacements for them in the MySQL Yum repository; see [Section 2.11.7, “Upgrading MySQL with the MySQL Yum Repository”](https://dev.mysql.com/doc/refman/8.0/en/updating-yum-repo.html) and, for a discussion on some possible effects of that on your system, see [Upgrading the Shared Client Libraries](https://dev.mysql.com/doc/refman/8.0/en/updating-yum-repo.html#updating-yum-repo-client-lib).
-
+   
 2. ### Selecting a Release Series
 
    When using the MySQL Yum repository, the latest GA series (currently MySQL 8.0) is selected for installation by default. If this is what you want, you can skip to the next step, [Installing MySQL](https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-repo-installing-mysql).
@@ -93,53 +59,47 @@ Follow the steps below to install the latest GA version of MySQL with the MySQL 
    shell> sudo yum-config-manager --enable mysql80-community
    ```
 
-   For dnf-enabled platforms:
-
-   ```bash
-   shell> sudo dnf config-manager --disable mysql57-community
-   shell> sudo dnf config-manager --enable mysql80-community
-   ```
-
    
 
    Besides using **yum-config-manager** or the **dnf config-manager** command, you can also select a release series by editing manually the `/etc/yum.repos.d/mysql-community.repo` file. This is a typical entry for a release series' subrepository in the file:
-
+   
    ```ini
    [mysql57-community]
-   name=MySQL 5.7 Community Server
+name=MySQL 5.7 Community Server
    baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/
-   enabled=1
+enabled=1
    gpgcheck=1
-   gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
    ```
-
+   
    Find the entry for the subrepository you want to configure, and edit the `enabled` option. Specify `enabled=0` to disable a subrepository, or `enabled=1` to enable a subrepository. For example, to install MySQL 8.0, make sure you have `enabled=0` for the above subrepository entry for MySQL 5.7, and have `enabled=1` for the entry for the 8.0 series:
-
+   
    ```ini
    # Enable to use MySQL 8.0
    [mysql80-community]
    name=MySQL 8.0 Community Server
-   baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/6/$basearch/
+baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/6/$basearch/
    enabled=1
-   gpgcheck=1
+gpgcheck=1
    gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql
    ```
-
+   
    You should only enable subrepository for one release series at any time. When subrepositories for more than one release series are enabled, the latest series will be used by Yum.
-
+   
    Verify that the correct subrepositories have been enabled and disabled by running the following command and checking its output (for dnf-enabled systems, replace **yum** in the command with **dnf**):
-
+   
    ```bash
    shell> yum repolist enabled | grep mysql
    ```
-
+```
+   
 3. ### Installing MySQL
 
    Install MySQL by the following command (for dnf-enabled systems, replace **yum** in the command with **dnf**):
 
    ```bash
    shell> sudo yum install mysql-community-server
-   ```
+```
 
    This installs the package for MySQL server (`mysql-community-server`) and also packages for the components required to run the server, including packages for the client (`mysql-community-client`), the common error messages and character sets for client and server (`mysql-community-common`), and the shared client libraries (`mysql-community-libs`).
 
@@ -187,59 +147,83 @@ mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
 
   [`validate_password`](https://dev.mysql.com/doc/refman/8.0/en/validate-password.html) is installed by default. The default password policy implemented by `validate_password` requires that passwords contain at least one upper case letter, one lower case letter, one digit, and one special character, and that the total password length is at least 8 characters.
 
-For more information on the postinstallation procedures, see [Section 2.10, “Postinstallation Setup and Testing”](https://dev.mysql.com/doc/refman/8.0/en/postinstallation.html).
 
-Note
 
-*Compatibility Information for EL7-based platforms:* The following RPM packages from the native software repositories of the platforms are incompatible with the package from the MySQL Yum repository that installs the MySQL server. Once you have installed MySQL using the MySQL Yum repository, you will not be able to install these packages (and vice versa).
+## 问题
 
-- akonadi-mysql
+根据初始化的临时密码登录 `mysql` 后，修改密码，之后无法用新密码登录系统。
 
-### Installing Additional MySQL Products and Components with Yum
+原因是 mysql 8 的密码加密策略不同，修改 mysql.user表中 plugin属性  `caching_sha2_password` --> `mysql_native_password` 即可。步骤如下（步骤四中进入mysql后可以不用修改密码）：
 
-You can use Yum to install and manage individual components of MySQL. Some of these components are hosted in sub-repositories of the MySQL Yum repository: for example, the MySQL Connectors are to be found in the MySQL Connectors Community sub-repository, and the MySQL Workbench in MySQL Tools Community. You can use the following command to list the packages for all the MySQL components available for your platform from the MySQL Yum repository (for dnf-enabled systems, replace **yum** in the command with **dnf**):
+1．首先确认服务器出于安全的状态，也就是没有人能够任意地连接MySQL数据库。 因为在重新设置MySQL的root密码的期间，MySQL数据库完全出于没有密码保护的状态下，其他的用户也可以任意地登录和修改MySQL的信息。可以采用将MySQL对外的端口封闭，并且停止Apache以及所有的用户进程的方法实现服务器的准安全状态。最安全的状态是到服务器的Console上面操作，并且拔掉网线。
 
-```bash
-shell> sudo yum --disablerepo=\* --enablerepo='mysql*-community*' list available
-```
-
-Install any packages of your choice with the following command, replacing *package-name* with name of the package (for dnf-enabled systems, replace **yum** in the command with **dnf**):
+2．修改MySQL的登录设置： 
 
 ```bash
-shell> sudo yum install package-name
+vim /etc/my.cnf 
 ```
 
-For example, to install MySQL Workbench on Fedora:
+在[mysqld]的段中加上一句：skip-grant-tables 
+例如： 
+
+```ini
+[mysqld] 
+datadir=/var/lib/mysql 
+socket=/var/lib/mysql/mysql.sock 
+skip-grant-tables 
+```
+
+保存并且退出vi。
+
+3．重新启动mysqld 
 
 ```bash
-shell> sudo dnf install mysql-workbench-community
+service mysqld restart 
 ```
 
-To install the shared client libraries (for dnf-enabled systems, replace **yum** in the command with **dnf**):
+4．登录并修改root用户的plugin
 
 ```bash
-shell> sudo yum install mysql-community-libs
+mysql
 ```
 
-## Platform Specific Notes
+```mysql
+mysql> USE mysql ; 
+mysql> UPDATE user SET plugin='mysql_native_password'
+mysql> WHERE User='root' AND host='localhost';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+```
 
-ARM Support
 
-ARM 64-bit (aarch64) is supported on Oracle Linux 7 and requires the Oracle Linux 7 Software Collections Repository (ol7_software_collections). For example, to install the server:
+
+5．将MySQL的登录设置修改回来 
 
 ```bash
-shell> yum-config-manager --enable ol7_software_collections
-shell> yum install mysql-community-server
+vim /etc/my.cnf 
 ```
 
-Note
 
-ARM 64-bit (aarch64) is supported on Oracle Linux 7 as of MySQL 8.0.12.
 
-Known Limitation
+将刚才在[mysqld]的段中加上的skip-grant-tables删除 
+保存并且退出vim
 
-The 8.0.12 release requires you to adjust the *libstdc++7* path by executing `ln -s /opt/oracle/oracle-armtoolset-1/root/usr/lib64 /usr/lib64/gcc7` after executing the `yum install` step.
+6．重新启动mysqld 
 
-## Updating MySQL with Yum
+```bash
+service mysqld restart 
+```
 
-Besides installation, you can also perform updates for MySQL products and components using the MySQL Yum repository. See[Section 2.11.7, “Upgrading MySQL with the MySQL Yum Repository”](https://dev.mysql.com/doc/refman/8.0/en/updating-yum-repo.html) for details.
+
+
+## 附：修改 `mysql` 密码的方法
+
+```mysql
+mysql> USE mysql ; 
+mysql> UPDATE user SET Password = password ( 'new-password' ) WHERE User = 'root' ; 
+mysql> flush privileges ; 
+mysql> quit
+```
+
+
+
