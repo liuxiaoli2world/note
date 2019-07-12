@@ -11,7 +11,7 @@ sudo yum install yum-utils
 
 To set up the yum repository, create the file named /etc/yum.repos.d/nginx.repo with the following contents:
 
-```
+```ini
 [nginx-stable]
 name=nginx stable repo
 baseurl=http://nginx.org/packages/centos/$releasever/$basearch/
@@ -22,7 +22,7 @@ gpgkey=https://nginx.org/keys/nginx_signing.key
 
 
 
-```
+```ini
 [nginx-mainline]
 name=nginx mainline repo
 baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/
@@ -47,7 +47,7 @@ When prompted to accept the GPG key, verify that the fingerprint matches 573B FD
 
 ## 配置
 
-```json
+```ini
 ########### 每个指令必须有分号结束。#################
 #user administrator administrators;  #配置用户或者组，默认为nobody nobody。
 #worker_processes 2;  #允许生成的进程数，默认为1
