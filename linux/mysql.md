@@ -91,7 +91,6 @@ gpgcheck=1
    ```bash
    shell> yum repolist enabled | grep mysql
    ```
-```
    
 3. ### Installing MySQL
 
@@ -99,7 +98,8 @@ gpgcheck=1
 
    ```bash
    shell> sudo yum install mysql-community-server
-```
+   ```
+
 
    This installs the package for MySQL server (`mysql-community-server`) and also packages for the components required to run the server, including packages for the client (`mysql-community-client`), the common error messages and character sets for client and server (`mysql-community-common`), and the shared client libraries (`mysql-community-libs`).
 
@@ -112,12 +112,13 @@ gpgcheck=1
    Starting mysqld:[ OK ]
    ```
 
+
    You can check the status of the MySQL server with the following command:
 
-   ```bash
-   shell> sudo service mysqld status
-   mysqld (pid 3066) is running.
-   ```
+  ```bash
+  shell> sudo service mysqld status
+  mysqld (pid 3066) is running.
+  ```
 
 At the initial start up of the server, the following happens, given that the data directory of the server is empty:
 
@@ -129,9 +130,9 @@ At the initial start up of the server, the following happens, given that the dat
 
 - A superuser account `'root'@'localhost` is created. A password for the superuser is set and stored in the error log file. To reveal it, use the following command:
 
-```bash
-shell> sudo grep 'temporary password' /var/log/mysqld.log
-```
+  ```bash
+  shell> sudo grep 'temporary password' /var/log/mysqld.log
+  ```
 
 注意：复制临时密码
 
@@ -139,9 +140,9 @@ shell> sudo grep 'temporary password' /var/log/mysqld.log
 
 粘贴临时密码，成功后进入 `mysql` 命令行，执行下面命令：  
 
-```sql
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
-```
+  ```sql
+  mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
+  ```
 
   Note
 
@@ -149,81 +150,79 @@ mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
 
 
 
-## 问题
+## 修改 mysql 8 密码
 
-根据初始化的临时密码登录 `mysql` 后，修改密码，之后无法用新密码登录系统。
-
-原因是 mysql 8 的密码加密策略不同，修改 mysql.user表中 plugin属性  `caching_sha2_password` --> `mysql_native_password` 即可。步骤如下（步骤四中进入mysql后可以不用修改密码）：
+mysql 8 的密码加密策略不同，跟之前的版本不同。
 
 1．首先确认服务器出于安全的状态，也就是没有人能够任意地连接MySQL数据库。 因为在重新设置MySQL的root密码的期间，MySQL数据库完全出于没有密码保护的状态下，其他的用户也可以任意地登录和修改MySQL的信息。可以采用将MySQL对外的端口封闭，并且停止Apache以及所有的用户进程的方法实现服务器的准安全状态。最安全的状态是到服务器的Console上面操作，并且拔掉网线。
 
 2．修改MySQL的登录设置： 
 
-```bash
-vim /etc/my.cnf 
-```
+  ```bash
+  vim /etc/my.cnf 
+  ```
 
 在[mysqld]的段中加上一句：skip-grant-tables 
 例如： 
 
-```ini
-[mysqld] 
-datadir=/var/lib/mysql 
-socket=/var/lib/mysql/mysql.sock 
-skip-grant-tables 
-```
+  ```ini
+  [mysqld] 
+  datadir=/var/lib/mysql 
+  socket=/var/lib/mysql/mysql.sock 
+  skip-grant-tables 
+  ```
 
 保存并且退出vi。
 
 3．重新启动mysqld 
 
-```bash
-service mysqld restart 
-```
+  ```bash
+  service mysqld restart 
+  ```
 
-4．登录并修改root用户的plugin
+4．登录并修改root用户的密码
 
-```bash
-mysql
-```
+  ```bash
+  mysql
+  ```
 
-```mysql
-mysql> USE mysql ; 
-mysql> UPDATE user SET plugin='mysql_native_password'
-mysql> WHERE User='root' AND host='localhost';
-mysql> FLUSH PRIVILEGES;
-mysql> quit
-```
+a. 首先查看当前root用户相关信息，在mysql数据库的user表中；
 
+  ```mysql
+  mysql> use mysql;
+  mysql> select host, user, authentication_string, plugin from user;
+  ```
 
+host: 允许用户登录的ip‘位置’%表示可以远程；
 
-5．将MySQL的登录设置修改回来 
+user:当前数据库的用户名；
 
-```bash
-vim /etc/my.cnf 
-```
+authentication_string: 用户密码；在mysql 5.7.9以后废弃了password字段和password()函数；
 
+b. 如果当前root用户authentication_string字段下有内容，先将其设置为空；
 
+  ```mysql
+  mysql> update user set authentication_string='' where user='root';
+  ```
 
-将刚才在[mysqld]的段中加上的skip-grant-tables删除 
-保存并且退出vim
+c. 退出mysql, 删除/etc/my.cnf文件最后的 skip-grant-tables ，重启mysql服务；
 
-6．重新启动mysqld 
+d. 使用root用户进行登录，因为上面设置了authentication_string为空，所以可以免密码登录；
 
-```bash
-service mysqld restart 
-```
+  ```bash
+  mysql
+  ```
 
+e. 使用ALTER修改root用户密码；
 
+  ```mysql
+  mysql>  ALTER user 'root'@'localhost' IDENTIFIED BY 'Qian123#';
+  ```
 
-## 附：修改 `mysql` 密码的方法
-
-```mysql
-mysql> USE mysql ; 
-mysql> UPDATE user SET Password = password ( 'new-password' ) WHERE User = 'root' ; 
-mysql> flush privileges ; 
-mysql> quit
-```
+至此修改成功； 从新使用用户名密码登录即可；
 
 
 
+'root'@'localhost' : Root1234.abcd
+
+'liuxiaoli'@'localhost' : Liuxiaoli1234.abcd
