@@ -169,24 +169,34 @@ At the initial start up of the server, the following happens, given that the dat
 
 - A superuser account `'root'@'localhost` is created. A password for the superuser is set and stored in the error log file. To reveal it, use the following command:
 
+- 
+
   ```bash
   shell> sudo grep 'temporary password' /var/log/mysqld.log
   ```
 
-  注意：复制临时密码
+  
 
+  注意：复制临时密码
+  
   Change the root password as soon as possible by logging in with the generated, temporary password and set a custom password for the superuser account:
+
+  
   
   ```bash
-shell> mysql -uroot -p
-  ```
-  
-  粘贴临时密码，成功后进入 `mysql` 命令行，执行下面命令：
-  
-  ```sql
-mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
+  shell> mysql -uroot -p
   ```
 
+  
+
+  粘贴临时密码，成功后进入 `mysql` 命令行，执行下面命令：
+  
+  
+  
+  ```sql
+  mysql> ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass4!';
+  ```
+  
   Note
   
   [`validate_password`](https://dev.mysql.com/doc/refman/8.0/en/validate-password.html) is installed by default. The default password policy implemented by `validate_password` requires that passwords contain at least one upper case letter, one lower case letter, one digit, and one special character, and that the total password length is at least 8 characters.
