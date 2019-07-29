@@ -18,13 +18,13 @@ $ su
 
 Create a repo file under **/etc/yum.repos.d/** directory.
 
-```bash
+```
 vi /etc/yum.repos.d/google-chrome.repo
 ```
 
 Copy and paste the below repository information to the above repo file.
 
-```bash
+```ini
 [google-chrome]
 name=google-chrome
 baseurl=http://dl.google.com/linux/chrome/rpm/stable/x86_64
@@ -53,7 +53,7 @@ Start Google Chrome (**Applications** >> **Internet** >> **Google Chrome**).
 
 **Note**: Google Chrome can not be run as root (**Tutorial about running Google Chrome as root**).
 
-![Install Google Chrome on CentOS 7 - Google Chrome Start Menu](https://www.itzgeek.com/wp-content/uploads/2014/09/CentOS-7-Google-Chrome-Start-Menu.jpg)Install Google Chrome on CentOS 7 – Google Chrome Start Menu
+![Install Google Chrome on CentOS 7 - Google Chrome Start Menu](chrome.assets/CentOS-7-Google-Chrome-Start-Menu.jpg)Install Google Chrome on CentOS 7 – Google Chrome Start Menu
 
 **OR**
 
@@ -69,6 +69,7 @@ $ google-chrome-beta
 
 **Screenshot of Google Chrome running on CentOS 7 / RHEL 7**.
 
-![Install Google Chrome on CentOS 7 - Google Chrome Running on CentOS 7](https://www.itzgeek.com/wp-content/uploads/2014/09/Install-Google-Chrome-on-CentOS-7-Google-Chrome-Running-on-CentOS-7.png)Install Google Chrome on CentOS 7 – Google Chrome Running on CentOS 7
+![Install Google Chrome on CentOS 7 - Google Chrome Running on CentOS 7](chrome.assets/Install-Google-Chrome-on-CentOS-7-Google-Chrome-Running-on-CentOS-7.png)Install Google Chrome on CentOS 7 – Google Chrome Running on CentOS 7
 
 That ‘s All.
+

@@ -2,9 +2,11 @@
 
 [你是否需要重置样式](https://www.webfx.com/blog/web-design/should-you-reset-your-css/)
 
+- https://www.webfx.com/blog/web-design/100-exceedingly-useful-css-tips-and-tricks/)
+
 # Should You Reset Your CSS?
 
-![Should You Reset Your CSS?](https://www.webfx.com/blog/images/assets/images.sixrevisions.com/2010/12/17-01_should_use_cssresets_ld_img.png)
+![Should You Reset Your CSS?](reset.assets/17-01_should_use_cssresets_ld_img.png)
 
 This article explores the ongoing debate on whether or not web designers and web developers should reset their CSS, sharing the thoughts and opinions of several web professionals.
 
@@ -80,21 +82,21 @@ Turner is pretty vocal about his opposition to the entire concept of resets, but
 
 In a slideshow presentation, Weakley cited the following code as being harmful to keyboard users:
 
-```css
+```
 :focus {outline: 0}
 ```
 
 When there is no visual representation of the active element (such as a link), it makes web page navigation difficult for keyboard users because they are unable to see which HTML element they are currently on.
 
-![:focus in Reset CSS](https://www.webfx.com/blog/images/assets/images.sixrevisions.com/2010/12/17-02_outline_focus_css_issue.jpg)
+![:focus in Reset CSS](reset.assets/17-02_outline_focus_css_issue.jpg)
 
-In an email interview, Meyer discussed the `:focus` controversy and said that he didn’t anticipate that people would just use Reset CSS without first understanding how it worked. Regarding the `:focus` style rule, he said: "Honestly, I put it in there to get people to define one. Clearly what I should have done was have outlined 3px solid red or something like that."
+In an email interview, Meyer discussed the `:focus` controversy and said that he didn’t anticipate that people would just use Reset CSS without first understanding how it worked. Regarding the `:focus`style rule, he said: "Honestly, I put it in there to get people to define one. Clearly what I should have done was have outlined 3px solid red or something like that."
 
 "From an accessibility viewpoint the mistake was in mentioning it at all, unfortunately. But on the other hand, you can’t really get away with, ‘Maybe if we don’t mention this, no one will ever notice it.’ They always notice it," Meyer said.
 
 Meyer promised an update to Reset CSS which will probably take the rule out and replace it with a comment reminding its users to define a visible `:focus` style rule.
 
-The importance of making sure that the `:focus` pseudo-class selector has a visual property is such that a website called [outlinenone.com](http://www.outlinenone.com/) has the single mission of warning against setting the `outline` CSS property to `none` or `0` for links. To learn more about this issue, Patrick Lauke has a [tutorial on styling the :focus pseudo-class](http://24ways.org/2009/dont-lose-your-focus).
+The importance of making sure that the `:focus` pseudo-class selector has a visual property is such that a website called [outlinenone.com](http://www.outlinenone.com/) has the single mission of warning against setting the `outline`CSS property to `none` or `0` for links. To learn more about this issue, Patrick Lauke has a [tutorial on styling the :focus pseudo-class](http://24ways.org/2009/dont-lose-your-focus).
 
 ### The Voices of Moderation
 
