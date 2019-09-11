@@ -390,13 +390,13 @@ p.sayName();
 
 babel的配置选项在命令行的使用规则是babel --name-value 比如我们使用es2015转译器，我们的命令就是
 
-1 babel src -d lib --presets=es2015
+`babel src -d lib --presets=es2015`
 
 babel的配置选项非常多，每个转译器也都有自己的配置选项，关于babel的配置选项的详细功能和使用方法，请点击[这里](https://link.zhihu.com/?target=https%3A//babeljs.io/docs/usage/api/%23options)查看。我这里只介绍几个常见的。
 
 ## 6.1、babelrc
 
-默认值为true，用于配置是否适用.babelrc和.babelignore文件，当命令行中添加--no-babelrc选项的时候，表示忽略.babelrc和.babelignore文件。在.babelrc文件中配置babelrc个人测试没有卵用。
+默认值为true，用于配置是否适用.babelrc和.babelignore文件，当命令行中添加 `--no-babelrc` 选项的时候，表示忽略.babelrc和.babelignore文件。在.babelrc文件中配置babelrc个人测试没有卵用。
 
 ## 6.2、env
 
