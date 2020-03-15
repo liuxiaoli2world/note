@@ -1,4 +1,4 @@
-# centos7下配置docker.md
+# centos7下安装配置docker.md
 
 ## 1.  安装 docker
 
