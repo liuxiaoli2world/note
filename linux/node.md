@@ -38,3 +38,14 @@ ln -s /root/node-v6.10.1/bin/npm /usr/local/bin/npm
 ```
 
 配置完成后即可在任何目录下使用node。 
+
+配置环境变量：
+
+```shell
+vi /etc/profile
+
+# 在最后添加下面两行
+export NODE_HOME=/root/node12.16.2
+export PATH=$NODE_HOME/bin:$PATH
+```
+
