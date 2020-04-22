@@ -78,9 +78,9 @@ registry.npmjs.org/packaename/version
 # 拉取镜像
 docker pull verdaccio/verdaccio
 # 运行容器（--rm表示临时，退出时会删除容器，-u root表示以root用户登录，否则无法修改config.yaml）
-docker run -it --rm -u root --name verdaccio -p 4873:4873 verdaccio/verdaccio
+docker run -d --rm -u root --name verdaccio -p 4873:4873 verdaccio/verdaccio
 # 运行容器（退出时不会删除容器）
-docker run -it -u root --name verdaccio -p 4873:4873 verdaccio/verdaccio
+docker run -d -u root --name verdaccio -p 4873:4873 verdaccio/verdaccio
 ```
 
 #### 2. 新增用户（注意：新增用户需在本地进行，否则无权限提交！）
@@ -106,20 +106,44 @@ vi /verdaccio/conf/config.yaml
 
 ```ini
 # error 413 Payload Too Large - PUT http://192.168.1.110:4873/clc.datacenter - request entity too large
-max_body_size: 3000mn
+max_body_size: 3000mb
 
 # error 503 Service Unavailable - PUT http://192.168.1.110:4873/clc.datacenter - one of the uplinks is down, refuse to publish
 publish:
-allow_offline: true
+    allow_offline: true
 ```
 
 #### 4. 自动化打包并上传到本地npm服务器上，命令如下图所示：
 
-![image-20200419200410709](私有npm服务器.assets/image-20200419200410709.png)
+![image-20200422100032481](私有npm服务器.assets/image-20200422100032481.png)
+
+![image-20200422083712744](私有npm服务器.assets/image-20200422083712744.png)
 
 上传完毕后结果如下图所示：
 
-![image-20200419200315149](私有npm服务器.assets/image-20200419200315149.png)
+![image-20200422085048810](私有npm服务器.assets/image-20200422085048810.png)
+
+![image-20200422085140625](私有npm服务器.assets/image-20200422085140625.png)
+
+#### 5. 拉取报错
+
+![image-20200422085935302](私有npm服务器.assets/image-20200422085935302.png)
+
+错误原因是依赖了华远的基础包，解决方案如下图，打开配置文件，修改uplinks为华远服务器：
+
+![image-20200422092225109](私有npm服务器.assets/image-20200422092225109.png)
+
+重新下载成功！
+
+![image-20200422092424825](私有npm服务器.assets/image-20200422092424825.png)
+
+#### 6.  修改npm registry为109服务器上，发现无法上传到109服务器，每次都上传到110服务器上，修改package.json配置：
+
+![image-20200422100145306](私有npm服务器.assets/image-20200422100145306.png)
+
+再执行打包命令，成功，如下图：
+
+![image-20200422101002713](私有npm服务器.assets/image-20200422101002713.png)
 
 ### 2. 直接安装
 
