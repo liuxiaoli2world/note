@@ -35,9 +35,14 @@ vi ifcfg-enp0s3
 
 :wq
 
-重启网络服务`service network restart #重启网络``ip addr #查看IP地址`
+ ```shell
+#重启网络服务
+service network restart
+#查看IP地址
+ip addr 
+ ```
 
- 
+
 
 **使用ifconfig**
 
